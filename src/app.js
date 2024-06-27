@@ -30,18 +30,8 @@ app.post('/books', (req,res) =>{
     books.push(newBook);
 
     res.json({msg:"usuario creado correctamente"})
+
 });
-
-
-//put actualizar libros por id
-// app.put('/books/:id', (req,res) => {
-//     const id = parseInt(req.params.id);
-//     const newBook = books.findIndex((book) => book.id === id);
-//     newBook.tittle =title;
-//     newBook.author = req.body.author;
-//     newBook.year = req.body.year;
-//     if(index === -1) return res.status(404).json({message: 'Libro no encontrado'});
-// });
 
 app.put('/books/:id', (req,res) => {
     const id = parseInt(req.params.id);
@@ -62,7 +52,7 @@ app.delete('/books/:id', (req,res) =>{
     const index = books.findIndex(book => book.id === id);
     if(index === -1) return res.status(404).json({message: 'Libro no encontrado'});
     books.splice(index, 1);
-    res.json(books);
+    res.json({msg: 'libro eliminado correctamente'});
 })
 
 
