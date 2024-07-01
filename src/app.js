@@ -1,15 +1,9 @@
 const express = require('express');
 const books = require('./bd');
-const { title } = require('process');
 
 const app = express();
 
 app.use(express.json());
-
-//primera vista del servidor
-app.get('/', (req,res)=>{
-    res.json("MUCHOS LIBROS FANTANTICOS")
-});
 
 //get rutas donde se ven los libros
 app.get('/books', (req,res) => {
@@ -20,39 +14,50 @@ app.get('/books', (req,res) => {
 app.get('/books/:id', (req,res)=>{
     const id = parseInt(req.params.id);
     const book = books.find(book => book.id === id);
-    if(!book) res.status(404).json({message: 'Libro no encontrado'})
+    if(!book) res.json({message: 'Libro no encontrado'})
         res.json(book);
 });
 
 //post creacion de libros 
 app.post('/books', (req,res) =>{
-    const newBook = {...req.body, id: books.length + 1};
-    books.push(newBook);
-
-    res.json({msg:"usuario creado correctamente"})
-
-});
+    const newBook = {
+        id: parseInt(books.length + 1),
+        title: req.body.title,
+        author: req.body.author,
+        year: parseInt(req.body.year)
+    }
+    if(books.some((titulo)=> titulo.title === newBook.title )){
+        res.json({message: 'El libro ya existe'});
+    }else{
+        books.push(newBook);
+        res.json({msg: "nuevo libro subido"});
+    }
+})
 
 app.put('/books/:id', (req,res) => {
     const id = parseInt(req.params.id);
-    const book = books.find(book => book.id === id);
+    const editar =books.find((editar) => editar.id == id )
+    if(editar){
+        editar.title = req.body.title;
+        editar.author = req.body.author;
+        editar.year = parseInt(req.body.year);
+        res.json({msg: 'libro editado correctamente'});
+    }else{
+        res.json({message: 'Libro no encontrado'});
+    }
 
-    if(!book) return res.status(404).json({message: 'Libro no encontrado'});
-
-    book.title = req.body.title;
-    book.author = req.body.author;
-    book.year = req.body.year;
-    
-    res.json(book);
 });
 
 //delete borrar libros por id
 app.delete('/books/:id', (req,res) =>{
     const id = parseInt(req.params.id);
-    const index = books.findIndex(book => book.id === id);
-    if(index === -1) return res.status(404).json({message: 'Libro no encontrado'});
-    books.splice(index, 1);
+    const eliminar = books.findIndex((eliminar) => eliminar.id === id);
+    if(eliminar === -1){ 
+        res.json({message: 'Libro no encontrado'});
+    }else{
+     books.splice(eliminar, 1)   
     res.json({msg: 'libro eliminado correctamente'});
+    }
 })
 
 
