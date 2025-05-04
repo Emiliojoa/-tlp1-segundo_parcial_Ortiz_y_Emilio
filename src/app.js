@@ -1,5 +1,5 @@
-const express = require('express');
-const books = require('./bd');
+import express from "express"
+import books from "./bd.js"
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.get('/books/:id', (req,res)=>{
 //post creacion de libros 
 app.post('/books', (req,res) =>{
     const newBook = {
-        id: parseInt(books.length + 1),
+        id: new Date().getTime(),
         title: req.body.title,
         author: req.body.author,
         year: parseInt(req.body.year)
@@ -35,7 +35,7 @@ app.post('/books', (req,res) =>{
 })
 
 app.put('/books/:id', (req,res) => {
-    const id = parseInt(req.params.id);
+    const id = +(req.params.id);
     const editar =books.find((editar) => editar.id == id )
     if(editar){
         editar.title = req.body.title;
@@ -50,7 +50,7 @@ app.put('/books/:id', (req,res) => {
 
 //delete borrar libros por id
 app.delete('/books/:id', (req,res) =>{
-    const id = parseInt(req.params.id);
+    const id = +(req.params.id);
     const eliminar = books.findIndex((eliminar) => eliminar.id === id);
     if(eliminar === -1){ 
         res.json({message: 'Libro no encontrado'});
