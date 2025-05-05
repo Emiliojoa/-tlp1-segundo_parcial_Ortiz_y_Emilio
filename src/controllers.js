@@ -1,22 +1,21 @@
 import books from "./bd.js"
 
 
-app.get("books/", (req,res)=>{
+const obtener =  (req,res)=>{
     res.json(books)
-})
+}
 
-app.get("/books/:id", (req,res)=>{
+const obtenerId= (req,res)=>{
     const id = parseInt(req.params.id)
     const book = books.find(book=> book.id===id)
     if (!book) res.json({msg: "libro no encontrado"})
-})
-
-app.push("/books", (req,res)=>{
+}
+const enviar=(req,res)=>{
     const newBook={
         id: new Date().getTime(),
-        title:req.params.title,
-        author:req.params.author,
-        year:req.params.year
+        title:req.body.title,
+        author:req.body.author,
+        year:req.body.year
     }
     if (books.some((titulo)=>titulo.title === newBook.title)){
         res.json({msg:"Este libro ya esta cargado en la base de datos"})
@@ -26,4 +25,26 @@ app.push("/books", (req,res)=>{
         newBook.push(books)
     }
 
-})
+}
+
+const editar= (req,res) => {
+    const id = +(req.params.id);
+    const editar =books.find((editar) => editar.id == id )
+    if(editar){
+        editar.title = req.body.title;
+        editar.author = req.body.author;
+        editar.year = parseInt(req.body.year);
+        res.json({msg: 'libro editado correctamente'});
+    }else{
+        res.json({message: 'Libro no encontrado'});
+    }
+
+}
+
+
+export {
+    obtener,
+    obtenerId,
+    enviar,
+    editar
+}
