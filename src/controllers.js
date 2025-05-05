@@ -41,10 +41,21 @@ const editar= (req,res) => {
 
 }
 
+const eliminar = (req,res)=>{
+    const id = parseInt(req.params.id)
+    const eliminarId= books.findIndex((eliminarId)=>eliminarId.id===id)
+    if(eliminarId ===-1){
+        res.json({msg:"Libro no encontrado"})
+    }else{
+        res.json({msg:"libro eliminado correctamente"})
+    }
+}
+
 
 export {
     obtener,
     obtenerId,
     enviar,
-    editar
+    editar,
+    eliminar
 }
