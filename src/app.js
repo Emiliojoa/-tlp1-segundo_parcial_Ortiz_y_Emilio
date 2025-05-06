@@ -3,7 +3,7 @@ import express from "express"
 const app = express();
 
 app.use(express.json())
-app.use(require("./router.js"))
+app.use(require("./router/router.js"))
 
 
 app.listen(4000,()=>{

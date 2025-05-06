@@ -1,4 +1,4 @@
-import books from "./bd.js"
+import books from "../db/bd.js"
 
 
 const obtener =  (req,res)=>{

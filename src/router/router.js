@@ -1,5 +1,5 @@
 import { Router }  from "express"
-import { editar, eliminar, enviar, obtener, obtenerId } from "./controllers"
+import { editar, eliminar, enviar, obtener, obtenerId } from "../controllers/controllers.js"
 
 
 const router = Router()
