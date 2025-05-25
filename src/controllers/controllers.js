@@ -9,7 +9,7 @@ const obtenerId= (req,res)=>{
     const id = parseInt(req.params.id)
     const book = books.find(book=> book.id===id)
     if (!book) res.json({msg: "libro no encontrado"})
-}
+}//hola
 const enviar=(req,res)=>{
     const newBook={
         id: new Date().getTime(),
