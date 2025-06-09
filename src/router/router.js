@@ -1,7 +1,7 @@
 import { Router }  from "express"
 import { editar, eliminar, enviar, obtener, obtenerId } from "../controllers/controllers.js"
 
-
+///rutas
 const authRouter = Router()
 
 authRouter.get("/books",obtener)
