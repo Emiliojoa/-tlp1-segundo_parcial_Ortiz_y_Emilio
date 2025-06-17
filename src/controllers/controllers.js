@@ -3,7 +3,7 @@ import books from "../db/bd.js"
 
 const obtener =  (req,res)=>{
     res.json(books)
-}//hola//kslajdla///
+}//hola//kslajdla////////
 //me acorde de como hacer un crud xd
 const obtenerId= (req,res)=>{
     const id = parseInt(req.params.id)
