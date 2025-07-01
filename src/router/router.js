@@ -9,6 +9,6 @@ authRouter.get("/books/:id",obtenerId)
 authRouter.post("/books",enviar)
 authRouter.put("/book/:id",editar)
 authRouter.delete("/books/:id", eliminar)
-
+///$-$-$/$2$
 export default router
 
